@@ -146,19 +146,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jakub\\.nuget\\packages\\": {}
+    "C:\\Users\\theKonfyrm\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jakub\\RiderProjects\\MarchingSquares\\MarchingSquares\\MarchingSquares.csproj",
+      "projectUniqueName": "C:\\Users\\theKonfyrm\\RiderProjects\\MarchingSquares\\MarchingSquares\\MarchingSquares.csproj",
       "projectName": "MarchingSquares",
-      "projectPath": "C:\\Users\\jakub\\RiderProjects\\MarchingSquares\\MarchingSquares\\MarchingSquares.csproj",
-      "packagesPath": "C:\\Users\\jakub\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jakub\\RiderProjects\\MarchingSquares\\MarchingSquares\\obj\\",
+      "projectPath": "C:\\Users\\theKonfyrm\\RiderProjects\\MarchingSquares\\MarchingSquares\\MarchingSquares.csproj",
+      "packagesPath": "C:\\Users\\theKonfyrm\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\theKonfyrm\\RiderProjects\\MarchingSquares\\MarchingSquares\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\jakub\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\theKonfyrm\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0-windows"
@@ -210,7 +210,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.408\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -20,6 +20,17 @@ namespace MarchingSquares.ViewModel;
 
 public class MainWindowViewModel : INotifyPropertyChanged
 {
+    private bool _colorVisible;
+    public bool ColorVisible
+    {
+        get => _colorVisible;
+        set
+        {
+            _colorVisible = value;
+            OnPropertyChanged(nameof(ColorVisible));
+        }
+    }
+    
     private BitmapImage _visibleImage;
 
     public BitmapImage VisibleImage
@@ -75,6 +86,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
         SwitchToGrayscaleCommand = new SwitchToGrayscaleCommand(this);
         Layers = new List<MarchingSquaresLayer>();
         VisibleImage = new BitmapImage();
+        ColorVisible = false;
     }
 
     public void OpenFileDialog()
@@ -124,6 +136,11 @@ public class MainWindowViewModel : INotifyPropertyChanged
         Bitmap bitmap = new Bitmap(ReadBitmap);
         float[,] noiseMap = _bitmapService.ImageToNoiseMap(bitmap);
         List<Tuple<PointF,PointF>> contours = _bitmapService.DoMarchingSquares(noiseMap, ReadBitmap.Width, ReadBitmap.Height);
+
+        if (ColorVisible)
+        {
+            bitmap = _bitmapService.NoiseMapToColorImage(noiseMap);
+        }
         
         Layers.Add(new MarchingSquaresLayer(){Layer = contours});
         
@@ -152,6 +169,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
     public void SwitchToColor()
     {
+        ColorVisible = true;
         float[,] noiseMap = _bitmapService.ImageToNoiseMap(ReadBitmap);
         Bitmap bitmap = _bitmapService.NoiseMapToColorImage(noiseMap);
         
@@ -183,6 +201,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
     public void SwitchToGrayscale()
     {
+        ColorVisible = false;
         Bitmap bitmap = new Bitmap(ReadBitmap);
         
         // Draw each line segment of the contour

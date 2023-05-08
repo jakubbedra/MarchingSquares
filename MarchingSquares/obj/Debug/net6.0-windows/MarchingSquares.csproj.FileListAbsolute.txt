@@ -53,3 +53,8 @@ C:\Users\jakub\RiderProjects\MarchingSquares\MarchingSquares\obj\Debug\net6.0-wi
 C:\Users\jakub\RiderProjects\MarchingSquares\MarchingSquares\obj\Debug\net6.0-windows\MarchingSquares.genruntimeconfig.cache
 C:\Users\jakub\RiderProjects\MarchingSquares\MarchingSquares\obj\Debug\net6.0-windows\ref\MarchingSquares.dll
 C:\Users\jakub\RiderProjects\MarchingSquares\MarchingSquares\bin\Debug\net6.0-windows\DotnetNoise.dll
+C:\Users\theKonfyrm\RiderProjects\MarchingSquares\MarchingSquares\bin\Debug\net6.0-windows\DotnetNoise.dll
+C:\Users\theKonfyrm\RiderProjects\MarchingSquares\MarchingSquares\obj\Debug\net6.0-windows\View\GeneratorWindow.g.cs
+C:\Users\theKonfyrm\RiderProjects\MarchingSquares\MarchingSquares\obj\Debug\net6.0-windows\View\GeneratorWindow.baml
+C:\Users\theKonfyrm\RiderProjects\MarchingSquares\MarchingSquares\obj\Debug\net6.0-windows\View\MarchingSquaresWindow.g.cs
+C:\Users\theKonfyrm\RiderProjects\MarchingSquares\MarchingSquares\obj\Debug\net6.0-windows\View\MarchingSquaresWindow.baml

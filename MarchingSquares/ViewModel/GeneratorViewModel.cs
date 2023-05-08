@@ -63,8 +63,8 @@ public class GeneratorViewModel : INotifyPropertyChanged
         GenerateBitmapCommand = new GenerateBitmapCommand(this);
         GenerateComplicatedSpot = false;
         Type = GeneratorType.PerlinNoise;
-        Width = 0;
-        Height = 0;
+        Width = 1000;
+        Height = 1000;
         _service = new BitmapService();
     }
 
@@ -80,6 +80,14 @@ public class GeneratorViewModel : INotifyPropertyChanged
             result = _service.GenerateImagesPerlin(Width, Height, false);
         }
 
+        MainModel.ReadBitmap = result;
+        
+        if (MainModel.ColorVisible)
+        {
+            float[,] noiseMap = _service.ImageToNoiseMap(result);
+            result = _service.NoiseMapToColorImage(noiseMap);
+        }
+        
         BitmapImage img = new BitmapImage();
         using (var stream = new MemoryStream())
         {
@@ -91,7 +99,6 @@ public class GeneratorViewModel : INotifyPropertyChanged
             img.EndInit();
         }
         
-        MainModel.ReadBitmap = result;
         MainModel.VisibleImage = img;
     }
 
