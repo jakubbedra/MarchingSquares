@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using MarchingSquares.Model;
 using MarchingSquares.Service;
 using MarchingSquares.ViewModel.Commands;
 using Microsoft.Win32;
@@ -32,7 +33,10 @@ public class MainWindowViewModel : INotifyPropertyChanged
     }
 
     public ICommand OpenFileDialogCommand { get; set; }
+    public ICommand OpenSaveFileDialogCommand { get; set; }
     public ICommand DoMarchingSquaresCommand { get; set; }
+    public ICommand SwitchToColorCommand { get; set; }
+    public ICommand SwitchToGrayscaleCommand { get; set; }
 
     private Bitmap? _readBitmap;
 
@@ -47,13 +51,29 @@ public class MainWindowViewModel : INotifyPropertyChanged
         }
     }
 
+    private List<MarchingSquaresLayer> _layers;
+
+    public List<MarchingSquaresLayer> Layers
+    {
+        get => _layers;
+        set
+        {
+            _layers = value;
+            OnPropertyChanged(nameof(Layers));
+        }
+    }
+
     private readonly BitmapService _bitmapService;
 
     public MainWindowViewModel()
     {
         _bitmapService = new BitmapService();
         OpenFileDialogCommand = new OpenFileDialogCommand(this);
+        OpenSaveFileDialogCommand = new OpenSaveFileDialogCommand(this);
         DoMarchingSquaresCommand = new DoMarchingSquaresCommand(this);
+        SwitchToColorCommand = new SwitchToColorCommand(this);
+        SwitchToGrayscaleCommand = new SwitchToGrayscaleCommand(this);
+        Layers = new List<MarchingSquaresLayer>();
         VisibleImage = new BitmapImage();
     }
 
@@ -87,11 +107,26 @@ public class MainWindowViewModel : INotifyPropertyChanged
         }
     }
 
+    public void OpenSaveFileDialog()
+    {
+        var dialog = new SaveFileDialog();
+        dialog.Filter = "Bitmap files (*.bmp)|*.bmp|All files (*.*)|*.*";
+        dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+        string path = "";
+        bool? result = dialog.ShowDialog();
+        
+        // todo
+    }
+    
     public void ApplyMarchingSquares()
     {
         Bitmap bitmap = new Bitmap(ReadBitmap);
         float[,] noiseMap = _bitmapService.ImageToNoiseMap(bitmap);
         List<Tuple<PointF,PointF>> contours = _bitmapService.DoMarchingSquares(noiseMap, ReadBitmap.Width, ReadBitmap.Height);
+        
+        Layers.Add(new MarchingSquaresLayer(){Layer = contours});
+        
         // Draw each line segment of the contour
         Pen pen = new Pen(Color.Red, 1);
         Graphics graphics = Graphics.FromImage(bitmap);
@@ -113,8 +148,67 @@ public class MainWindowViewModel : INotifyPropertyChanged
         }
         
         VisibleImage = img;
+    }
+
+    public void SwitchToColor()
+    {
+        float[,] noiseMap = _bitmapService.ImageToNoiseMap(ReadBitmap);
+        Bitmap bitmap = _bitmapService.NoiseMapToColorImage(noiseMap);
         
-        //VisibleImage = img;
+        // Draw each line segment of the contour
+        Pen pen = new Pen(Color.Red, 1);
+        Graphics graphics = Graphics.FromImage(bitmap);
+        foreach (MarchingSquaresLayer layer in Layers)
+        {
+            foreach (Tuple<PointF, PointF> line in layer.Layer)
+            {
+                graphics.DrawLine(pen, line.Item1, line.Item2);
+            }   
+        }
+        
+        // todo: currently it applies the isolines to the map, we would like the lines to be separate later on
+        BitmapImage img = new BitmapImage();
+        using (var stream = new MemoryStream())
+        {
+            bitmap.Save(stream, ImageFormat.Bmp);
+            stream.Position = 0;
+            img.BeginInit();
+            img.StreamSource = stream;
+            img.CacheOption = BitmapCacheOption.OnLoad;
+            img.EndInit();
+        }
+        
+        VisibleImage = img;
+    }
+
+    public void SwitchToGrayscale()
+    {
+        Bitmap bitmap = new Bitmap(ReadBitmap);
+        
+        // Draw each line segment of the contour
+        Pen pen = new Pen(Color.Red, 1);
+        Graphics graphics = Graphics.FromImage(bitmap);
+        foreach (MarchingSquaresLayer layer in Layers)
+        {
+            foreach (Tuple<PointF, PointF> line in layer.Layer)
+            {
+                graphics.DrawLine(pen, line.Item1, line.Item2);
+            }   
+        }
+        
+        // todo: currently it applies the isolines to the map, we would like the lines to be separate later on
+        BitmapImage img = new BitmapImage();
+        using (var stream = new MemoryStream())
+        {
+            bitmap.Save(stream, ImageFormat.Bmp);
+            stream.Position = 0;
+            img.BeginInit();
+            img.StreamSource = stream;
+            img.CacheOption = BitmapCacheOption.OnLoad;
+            img.EndInit();
+        }
+        
+        VisibleImage = img;
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -123,4 +217,5 @@ public class MainWindowViewModel : INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+
 }

@@ -3,13 +3,13 @@ using System.Windows.Input;
 
 namespace MarchingSquares.ViewModel.Commands;
 
-public abstract class CommandBase : ICommand
+public abstract class CommandBase<T> : ICommand
 {
-    protected readonly MainWindowViewModel _customerListViewModel;
+    protected readonly T _viewModel;
 
-    public CommandBase(MainWindowViewModel customerListViewModel)
+    public CommandBase(T viewModel)
     {
-        _customerListViewModel = customerListViewModel;
+        _viewModel = viewModel;
     }
 
     event EventHandler ICommand.CanExecuteChanged

@@ -8,10 +8,19 @@
     ".NETCoreApp,Version=v6.0": {
       "MarchingSquares/1.0.0": {
         "dependencies": {
+          "DotnetNoise": "1.0.0",
           "System.Drawing.Common": "8.0.0-preview.2.23128.3"
         },
         "runtime": {
           "MarchingSquares.dll": {}
+        }
+      },
+      "DotnetNoise/1.0.0": {
+        "runtime": {
+          "lib/netstandard2.0/DotnetNoise.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "Microsoft.Win32.SystemEvents/8.0.0-preview.2.23128.3": {
@@ -48,6 +57,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "DotnetNoise/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GdEL8YZXceS39AsanUUwZCX/lRseX26xhbQIhB0/+yz4+rx8eWy+0vkP6isPuAecEvd0PVkXO4peNRW0wMlzhg==",
+      "path": "dotnetnoise/1.0.0",
+      "hashPath": "dotnetnoise.1.0.0.nupkg.sha512"
     },
     "Microsoft.Win32.SystemEvents/8.0.0-preview.2.23128.3": {
       "type": "package",

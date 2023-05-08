@@ -11,26 +11,28 @@
     <Window.Resources>
         <viewModel:MainWindowViewModel x:Key="vm" />
     </Window.Resources>
-    <Grid Height="780" Width="1080" DataContext="{StaticResource vm}">
+    <Grid Height="780" Width="1080" DataContext="{StaticResource vm}" x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="160"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid>
             <Menu Height="20" VerticalAlignment="Top">
-                <MenuItem Header="_File">
+                <MenuItem Header="_Bitmap">
+                    <MenuItem Header="_Generate" Click="OnAdd"/>
                     <MenuItem Header="_Open" Command="{Binding OpenFileDialogCommand}" />
+                    <MenuItem Header="_Save" Command="{Binding OpenSaveFileDialogCommand}"/>
                 </MenuItem>
                 <MenuItem Header="_View">
-                    <RadioButton Content="Grayscale" IsChecked="True" />
-                    <RadioButton Content="Color" />
+                    <RadioButton Content="Grayscale" IsChecked="True" Command="{Binding SwitchToGrayscaleCommand}" />
+                    <RadioButton Content="Color" Command="{Binding SwitchToColorCommand}"/>
                 </MenuItem>
             </Menu>
 
             <Grid>
                 <!--todo-->
             </Grid>
-            <Button Height="50" VerticalAlignment="Bottom" Margin="10, 0, 0, 50" 
+            <Button Height="50" VerticalAlignment="Bottom" Margin="10, 0, 0, 40" 
                     Command="{Binding DoMarchingSquaresCommand, Mode=TwoWay}">
                 Do marching squares
             </Button>

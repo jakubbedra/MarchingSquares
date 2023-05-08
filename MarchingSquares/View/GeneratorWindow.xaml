@@ -1,0 +1,71 @@
+<Window x:Class="MarchingSquares.View.GeneratorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:MarchingSquares.View"
+        xmlns:viewModel="clr-namespace:MarchingSquares.ViewModel"
+        xmlns:validationRules="clr-namespace:MarchingSquares.ViewModel.ValidationRules"
+        xmlns:converters="clr-namespace:MarchingSquares.ViewModel.Converters"
+        mc:Ignorable="d"
+        Title="Map Generator" Height="250" Width="450">
+    <Window.Resources>
+        <viewModel:GeneratorViewModel x:Key="vm" />
+        <converters:MultiBooleanConverter x:Key="multiBooleanConverter" />
+    </Window.Resources>
+    <Grid x:Name="MainGrid" DataContext="{StaticResource vm}">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Width="100" Height="30">Width:</Label>
+                <TextBox Grid.Row="1" Grid.Column="0" Width="100" Height="50" Name="WidthTextBox">
+                    <TextBox.Text>
+                        <Binding Path="Width" Mode="TwoWay">
+                            <Binding.ValidationRules>
+                                <validationRules:IntegerValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <Label Grid.Row="0" Grid.Column="1" Width="100" Height="30">Height:</Label>
+                <TextBox Grid.Row="1" Grid.Column="1" Width="100" Height="50" Name="HeightTextBox">
+                    <TextBox.Text>
+                        <Binding Path="Height" Mode="TwoWay">
+                            <Binding.ValidationRules>
+                                <validationRules:IntegerValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <Label Grid.Row="0" Grid.Column="2" Width="100" Height="30">Generator type:</Label>
+                <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Width="130">
+                    <ComboBox SelectedValue="{Binding Type}"  VerticalAlignment="Center" SelectedValuePath="Tag" TextSearch.TextPath="" Height="50">
+                        <ComboBoxItem Content="Perlin" Tag="{x:Static viewModel:GeneratorType.PerlinNoise}" />
+                        <ComboBoxItem Content="Gaussian" Tag="{x:Static viewModel:GeneratorType.Gaussian}" />
+                    </ComboBox>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Button Grid.Row="1" VerticalAlignment="Bottom" Height="50" Command="{Binding GenerateBitmapCommand}">
+            <Button.IsEnabled>
+                <MultiBinding Converter="{StaticResource multiBooleanConverter}">
+                    <Binding Path="(Validation.HasError)" ElementName="WidthTextBox" />
+                    <Binding Path="(Validation.HasError)" ElementName="HeightTextBox" />
+                </MultiBinding>
+            </Button.IsEnabled>
+            Generate
+        </Button>
+    </Grid>
+</Window>

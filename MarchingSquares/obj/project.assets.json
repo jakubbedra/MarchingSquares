@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     "net6.0-windows7.0": {
+      "DotnetNoise/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/DotnetNoise.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/DotnetNoise.dll": {}
+        }
+      },
       "Microsoft.Win32.SystemEvents/8.0.0-preview.2.23128.3": {
         "type": "package",
         "compile": {
@@ -46,6 +55,19 @@
     }
   },
   "libraries": {
+    "DotnetNoise/1.0.0": {
+      "sha512": "GdEL8YZXceS39AsanUUwZCX/lRseX26xhbQIhB0/+yz4+rx8eWy+0vkP6isPuAecEvd0PVkXO4peNRW0wMlzhg==",
+      "type": "package",
+      "path": "dotnetnoise/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "dotnetnoise.1.0.0.nupkg.sha512",
+        "dotnetnoise.nuspec",
+        "lib/netstandard2.0/DotnetNoise.dll"
+      ]
+    },
     "Microsoft.Win32.SystemEvents/8.0.0-preview.2.23128.3": {
       "sha512": "2ugSY6UuqJfYhvVUaf4ueuUiMjIyN9dU03wpbKfRDsn13XvZ91yOlw7NLhYvB1Xc8gCAZpND20Tgbe3uBVytKA==",
       "type": "package",
@@ -119,23 +141,24 @@
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
+      "DotnetNoise >= 1.0.0",
       "System.Drawing.Common >= 8.0.0-preview.2.23128.3"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\theKonfyrm\\.nuget\\packages\\": {}
+    "C:\\Users\\jakub\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\theKonfyrm\\RiderProjects\\MarchingSquares\\MarchingSquares\\MarchingSquares.csproj",
+      "projectUniqueName": "C:\\Users\\jakub\\RiderProjects\\MarchingSquares\\MarchingSquares\\MarchingSquares.csproj",
       "projectName": "MarchingSquares",
-      "projectPath": "C:\\Users\\theKonfyrm\\RiderProjects\\MarchingSquares\\MarchingSquares\\MarchingSquares.csproj",
-      "packagesPath": "C:\\Users\\theKonfyrm\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\theKonfyrm\\RiderProjects\\MarchingSquares\\MarchingSquares\\obj\\",
+      "projectPath": "C:\\Users\\jakub\\RiderProjects\\MarchingSquares\\MarchingSquares\\MarchingSquares.csproj",
+      "packagesPath": "C:\\Users\\jakub\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\jakub\\RiderProjects\\MarchingSquares\\MarchingSquares\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\theKonfyrm\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\jakub\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0-windows"
@@ -159,6 +182,10 @@
       "net6.0-windows7.0": {
         "targetAlias": "net6.0-windows",
         "dependencies": {
+          "DotnetNoise": {
+            "target": "Package",
+            "version": "[1.0.0, )"
+          },
           "System.Drawing.Common": {
             "target": "Package",
             "version": "[8.0.0-preview.2.23128.3, )"
@@ -183,7 +210,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.408\\RuntimeIdentifierGraph.json"
       }
     }
   }

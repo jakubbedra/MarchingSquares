@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MarchingSquares.View;
+using MarchingSquares.ViewModel;
 
 namespace MarchingSquares
 {
@@ -23,6 +25,13 @@ namespace MarchingSquares
         public MainWindow()
         {
             InitializeComponent();
+        }
+        
+        private void OnAdd(object sender, RoutedEventArgs e)
+        {
+            MainWindowViewModel viewModel = (MainWindowViewModel)MainGrid.DataContext;
+            GeneratorWindow window = new GeneratorWindow(viewModel);
+            window.Show();
         }
     }
 }
