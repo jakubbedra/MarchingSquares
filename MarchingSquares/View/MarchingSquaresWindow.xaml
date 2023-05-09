@@ -13,7 +13,7 @@
         <viewModel:MarchingSquaresViewModel x:Key="vm" />
         <converters:MultiBooleanConverter x:Key="multiBooleanConverter" />
     </Window.Resources>
-    <Grid DataContext="{StaticResource vm}">
+    <Grid DataContext="{StaticResource vm}" x:Name="MainGrid">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

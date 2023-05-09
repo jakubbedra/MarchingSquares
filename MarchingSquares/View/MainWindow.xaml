@@ -26,7 +26,7 @@
                     <RadioButton Content="Grayscale" IsChecked="True" Command="{Binding SwitchToGrayscaleCommand}" />
                     <RadioButton Content="Color" Command="{Binding SwitchToColorCommand}"/>
                 </MenuItem>
-                <MenuItem Header="_Marching Squares" Command="{Binding DoMarchingSquaresCommand, Mode=TwoWay}"></MenuItem>
+                <MenuItem Header="_Marching Squares" Click="OnMarchingSquares"></MenuItem>
             </Menu>
         </Grid>
         <Grid Column="0">

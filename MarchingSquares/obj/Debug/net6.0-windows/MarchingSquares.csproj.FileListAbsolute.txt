@@ -58,3 +58,5 @@ C:\Users\theKonfyrm\RiderProjects\MarchingSquares\MarchingSquares\obj\Debug\net6
 C:\Users\theKonfyrm\RiderProjects\MarchingSquares\MarchingSquares\obj\Debug\net6.0-windows\View\GeneratorWindow.baml
 C:\Users\theKonfyrm\RiderProjects\MarchingSquares\MarchingSquares\obj\Debug\net6.0-windows\View\MarchingSquaresWindow.g.cs
 C:\Users\theKonfyrm\RiderProjects\MarchingSquares\MarchingSquares\obj\Debug\net6.0-windows\View\MarchingSquaresWindow.baml
+C:\Users\jakub\RiderProjects\MarchingSquares\MarchingSquares\obj\Debug\net6.0-windows\View\MarchingSquaresWindow.g.cs
+C:\Users\jakub\RiderProjects\MarchingSquares\MarchingSquares\obj\Debug\net6.0-windows\View\MarchingSquaresWindow.baml

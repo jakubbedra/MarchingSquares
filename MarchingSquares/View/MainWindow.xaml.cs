@@ -33,5 +33,12 @@ namespace MarchingSquares
             GeneratorWindow window = new GeneratorWindow(viewModel);
             window.Show();
         }
+
+        private void OnMarchingSquares(object sender, RoutedEventArgs e)
+        {
+            MainWindowViewModel viewModel = (MainWindowViewModel)MainGrid.DataContext;
+            MarchingSquaresWindow window = new MarchingSquaresWindow(viewModel);
+            window.Show();
+        }
     }
 }

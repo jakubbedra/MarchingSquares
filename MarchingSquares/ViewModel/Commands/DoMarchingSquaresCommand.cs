@@ -3,9 +3,9 @@ using System.Windows.Input;
 
 namespace MarchingSquares.ViewModel.Commands;
 
-public class DoMarchingSquaresCommand : CommandBase<MainWindowViewModel>
+public class DoMarchingSquaresCommand : CommandBase<MarchingSquaresViewModel>
 {
-    public DoMarchingSquaresCommand(MainWindowViewModel viewModel) : base(viewModel)
+    public DoMarchingSquaresCommand(MarchingSquaresViewModel viewModel) : base(viewModel)
     {
     }
 
@@ -16,7 +16,7 @@ public class DoMarchingSquaresCommand : CommandBase<MainWindowViewModel>
     
     public override bool CanExecute(object? parameter)
     {
-        return _viewModel.ReadBitmap != null;
+        return _viewModel.MainModel != null && _viewModel.MainModel.ReadBitmap != null;
     }
     
 }

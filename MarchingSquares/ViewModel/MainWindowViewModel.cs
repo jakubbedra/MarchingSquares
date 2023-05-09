@@ -116,6 +116,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
             VisibleImage = img;
             ReadBitmap = bitmap;
             // todo: also clear any layers other than the main one
+            Layers.Clear();
         }
     }
 
@@ -127,46 +128,13 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
         string path = "";
         bool? result = dialog.ShowDialog();
-        
-        // todo
+        if (result == true)
+        {
+            path = dialog.FileName;
+            ReadBitmap.Save(path, ImageFormat.Bmp);
+        }
     }
     
-    public void ApplyMarchingSquares()
-    {
-        Bitmap bitmap = new Bitmap(ReadBitmap);
-        float[,] noiseMap = _bitmapService.ImageToNoiseMap(bitmap);
-        List<Tuple<PointF,PointF>> contours = _bitmapService.DoMarchingSquares(noiseMap, ReadBitmap.Width, ReadBitmap.Height);
-
-        if (ColorVisible)
-        {
-            bitmap = _bitmapService.NoiseMapToColorImage(noiseMap);
-        }
-        
-        Layers.Add(new MarchingSquaresLayer(){Layer = contours});
-        
-        // Draw each line segment of the contour
-        Pen pen = new Pen(Color.Red, 1);
-        Graphics graphics = Graphics.FromImage(bitmap);
-        foreach (Tuple<PointF, PointF> line in contours)
-        {
-            graphics.DrawLine(pen, line.Item1, line.Item2);
-        }
-        
-        // todo: currently it applies the isolines to the map, we would like the lines to be separate later on
-        BitmapImage img = new BitmapImage();
-        using (var stream = new MemoryStream())
-        {
-            bitmap.Save(stream, ImageFormat.Bmp);
-            stream.Position = 0;
-            img.BeginInit();
-            img.StreamSource = stream;
-            img.CacheOption = BitmapCacheOption.OnLoad;
-            img.EndInit();
-        }
-        
-        VisibleImage = img;
-    }
-
     public void SwitchToColor()
     {
         ColorVisible = true;
