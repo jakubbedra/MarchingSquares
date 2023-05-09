@@ -105,24 +105,23 @@ public class BitmapService
         return NoiseMapToImage(noiseMap, useColor ? _regions : new List<TerrainType>());
     }
 
-    public Bitmap GenerateImagesGaussian(int width, int height, bool useColor)
+    public Bitmap GenerateImagesGaussian(int width, int height, bool useColor, bool generateComplicatedSpot)
     {
         GaussianNoiseGenerator gaussianNoiseGenerator = new GaussianNoiseGenerator(height, width);
 
         float radius = _r.NextSingle() * (RadiusMax - RadiusMin) + RadiusMin;
         float scale = _r.NextSingle() * (ScaleMax - ScaleMin) + ScaleMin;
-        float[,] noiseMap = gaussianNoiseGenerator.GenerateNoiseMap(_r.Next(10, 24));
+        float[,] noiseMap = gaussianNoiseGenerator.GenerateNoiseMap(_r.Next(10, 24), generateComplicatedSpot);
         return NoiseMapToImage(noiseMap, useColor ? _regions : new List<TerrainType>());
     }
 
-    public List<Tuple<PointF, PointF>> DoMarchingSquares(float[,] noiseMap, int width, int height)
+    public List<Tuple<PointF, PointF>> DoMarchingSquares(float[,] noiseMap, int width, int height, int isoLevelsCount = 5, int stepSize = 10)
     {
         List<Tuple<PointF, PointF>> contours = new List<Tuple<PointF, PointF>>();
-        int isoLevelsCount = 5;
         for (int j = 0; j < isoLevelsCount; j++)
         {
             List<Tuple<PointF, PointF>> contour1 =
-                Algorithms.MarchingSquares.GetContour(noiseMap, 1 / (float)isoLevelsCount * j + ScaleMin, 10);
+                Algorithms.MarchingSquares.GetContour(noiseMap, 1 / (float)isoLevelsCount * j + ScaleMin, stepSize);
             contours.AddRange(contour1);
         }
 

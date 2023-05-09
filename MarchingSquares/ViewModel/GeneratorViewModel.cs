@@ -73,7 +73,7 @@ public class GeneratorViewModel : INotifyPropertyChanged
         Bitmap result;
         if (Type == GeneratorType.Gaussian)
         {
-            result = _service.GenerateImagesGaussian(Width, Height, false);
+            result = _service.GenerateImagesGaussian(Width, Height, false, GenerateComplicatedSpot);
         }
         else
         {

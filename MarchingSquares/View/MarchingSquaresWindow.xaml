@@ -4,9 +4,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:MarchingSquares.View"
+        xmlns:validationRules="clr-namespace:MarchingSquares.ViewModel.ValidationRules"
+        xmlns:viewModel="clr-namespace:MarchingSquares.ViewModel"
+        xmlns:converters="clr-namespace:MarchingSquares.ViewModel.Converters"
         mc:Ignorable="d"
-        Title="MarchingSquaresWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Marching Squares" Height="200" Width="350">
+    <Window.Resources>
+        <viewModel:MarchingSquaresViewModel x:Key="vm" />
+        <converters:MultiBooleanConverter x:Key="multiBooleanConverter" />
+    </Window.Resources>
+    <Grid DataContext="{StaticResource vm}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Width="100" Height="30">Iso levels:</Label>
+            <TextBox Grid.Row="1" Grid.Column="0" Width="100" Height="50" Name="WidthTextBox">
+                <TextBox.Text>
+                    <Binding Path="IsoLevelsCount" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <validationRules:IntegerValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Label Grid.Row="0" Grid.Column="1" Width="100" Height="30">Step size:</Label>
+            <TextBox Grid.Row="1" Grid.Column="1" Width="100" Height="50" Name="HeightTextBox">
+                <TextBox.Text>
+                    <Binding Path="StepSize" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <validationRules:IntegerValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+        </Grid>
+        <Button VerticalAlignment="Bottom" Height="50" Command="{Binding DoMarchingSquaresCommand}">
+            <Button.IsEnabled>
+                <MultiBinding Converter="{StaticResource multiBooleanConverter}">
+                    <Binding Path="(Validation.HasError)" ElementName="WidthTextBox" />
+                    <Binding Path="(Validation.HasError)" ElementName="HeightTextBox" />
+                </MultiBinding>
+            </Button.IsEnabled>
+            Apply
+        </Button>
     </Grid>
 </Window>

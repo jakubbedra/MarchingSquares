@@ -18,6 +18,7 @@ public static class MarchingSquares
             for (int j = 0; j < height - stepSize; j += stepSize)
             {
                 float val1 = data[i, j];
+
                 float val2 = data[i + stepSize, j];
                 float val3 = data[i + stepSize, j + stepSize];
                 float val4 = data[i, j + stepSize];
@@ -34,137 +35,178 @@ public static class MarchingSquares
                 float x2 = i + stepSize;
                 float y2 = j + stepSize;
 
+                float factor = 0.5f;
                 Tuple<PointF, PointF> line;
                 PointF startPoint;
                 PointF endPoint;
                 switch (bin)
                 {
                     case 1:
-                        startPoint = new PointF(x1, y1 + 0.5f * stepSize);
-                        endPoint = new PointF(x1 + 0.5f * stepSize, y1);
+                        factor = (isovalue - val4) / (val1 - val4);
+                        startPoint = new PointF(x1, y2 - factor * stepSize);
+                        factor = (isovalue - val2) / (val1 - val2);
+                        endPoint = new PointF(x2 - factor * stepSize, y1);
                         line = new Tuple<PointF, PointF>(startPoint, endPoint);
                         contours.Add(line);
                         break;
                     case 2:
-                        startPoint = new PointF(x1 + 0.5f * stepSize, y1);
-                        endPoint = new PointF(x2, y1 + 0.5f * stepSize);
+                        factor = (isovalue - val1) / (val2 - val1);
+                        startPoint = new PointF(x1 + factor * stepSize, y1);
+                        factor = (isovalue - val3) / (val2 - val3);
+                        endPoint = new PointF(x2, y2 - factor * stepSize);
                         line = new Tuple<PointF, PointF>(startPoint, endPoint);
                         contours.Add(line);
                         break;
                     case 3:
-                        startPoint = new PointF(x1, y1 + 0.5f * stepSize);
-                        endPoint = new PointF(x2, y1 + 0.5f * stepSize);
+                        factor = (isovalue - val4) / (val1 - val4);
+                        startPoint = new PointF(x1, y2 - factor * stepSize);
+
+                        factor = (isovalue - val3) / (val2 - val3);
+                        endPoint = new PointF(x2, y2 - factor * stepSize);
                         line = new Tuple<PointF, PointF>(startPoint, endPoint);
                         contours.Add(line);
                         break;
                     case 4:
-                        startPoint = new PointF(x2, y1 + 0.5f * stepSize);
-                        endPoint = new PointF(x1 + 0.5f * stepSize, y2);
+                        factor = (isovalue - val2) / (val3 - val2);
+                        startPoint = new PointF(x2, y1 + factor * stepSize);
+                        factor = (isovalue - val4) / (val3 - val4);
+                        endPoint = new PointF(x1 + factor * stepSize, y2);
                         line = new Tuple<PointF, PointF>(startPoint, endPoint);
                         contours.Add(line);
                         break;
                     case 5:
                         if (middleVal < isovalue)
                         {
-                            startPoint = new PointF(x1, y1 + 0.5f * stepSize);
-                            endPoint = new PointF(x1 + 0.5f * stepSize, y1);
+                            factor = (isovalue - val4) / (val1 - val4);
+                            startPoint = new PointF(x1, y2 - factor * stepSize);
+                            factor = (isovalue - val2) / (val1 - val2);
+                            endPoint = new PointF(x2 - factor * stepSize, y1);
                             line = new Tuple<PointF, PointF>(startPoint, endPoint);
                             contours.Add(line);
 
-                            startPoint = new PointF(x2, y1 + 0.5f * stepSize);
-                            endPoint = new PointF(x1 + 0.5f * stepSize, y2);
+                            factor = (isovalue - val2) / (val3 - val2);
+                            startPoint = new PointF(x2, y1 + factor * stepSize);
+                            factor = (isovalue - val4) / (val3 - val4);
+                            endPoint = new PointF(x1 + factor * stepSize, y2);
                             line = new Tuple<PointF, PointF>(startPoint, endPoint);
                             contours.Add(line);
                         }
                         else
                         {
-                            startPoint = new PointF(x1, y1 + 0.5f * stepSize);
-                            endPoint = new PointF(x1 + 0.5f * stepSize, y2);
+                            factor = (isovalue - val4) / (val1 - val4);
+                            startPoint = new PointF(x1, y2 - factor * stepSize);
+                            factor = (isovalue - val4) / (val3 - val4);
+                            endPoint = new PointF(x1 + factor * stepSize, y2);
                             line = new Tuple<PointF, PointF>(startPoint, endPoint);
                             contours.Add(line);
 
-                            startPoint = new PointF(x2, y1 + 0.5f * stepSize);
-                            endPoint = new PointF(x1 + 0.5f * stepSize, y1);
+                            factor = (isovalue - val2) / (val3 - val2);
+                            startPoint = new PointF(x2, y1 + factor * stepSize);
+                            factor = (isovalue - val2) / (val1 - val2);
+                            endPoint = new PointF(x2 - factor * stepSize, y1);
                             line = new Tuple<PointF, PointF>(startPoint, endPoint);
                             contours.Add(line);
                         }
 
                         break;
                     case 6:
-                        startPoint = new PointF(x1 + 0.5f * stepSize, y1);
-                        endPoint = new PointF(x1 + 0.5f * stepSize, y2);
+                        factor = (isovalue - val1) / (val2 - val1);
+                        startPoint = new PointF(x1 + factor * stepSize, y1);
+                        factor = (isovalue - val4) / (val3 - val4);
+                        endPoint = new PointF(x1 + factor * stepSize, y2);
                         line = new Tuple<PointF, PointF>(startPoint, endPoint);
                         contours.Add(line);
                         break;
                     case 7:
-                        startPoint = new PointF(x1, y1 + 0.5f * stepSize);
-                        endPoint = new PointF(x1 + 0.5f * stepSize, y2);
+                        factor = (isovalue - val4) / (val1 - val4);
+                        startPoint = new PointF(x1, y2 - factor * stepSize);
+                        factor = (isovalue - val4) / (val3 - val4);
+                        endPoint = new PointF(x1 + factor * stepSize, y2);
                         line = new Tuple<PointF, PointF>(startPoint, endPoint);
                         contours.Add(line);
-
                         break;
                     case 8:
-                        startPoint = new PointF(x1 + 0.5f * stepSize, y2);
-                        endPoint = new PointF(x1, y1 + 0.5f * stepSize);
+                        factor = (isovalue - val3) / (val4 - val3);
+                        startPoint = new PointF(x2 - factor * stepSize, y2);
+                        factor = (isovalue - val1) / (val4 - val1);
+                        endPoint = new PointF(x1, y1 + factor * stepSize);
                         line = new Tuple<PointF, PointF>(startPoint, endPoint);
                         contours.Add(line);
                         break;
                     case 9:
-
-                        startPoint = new PointF(x1 + 0.5f * stepSize, y2);
-                        endPoint = new PointF(x1 + 0.5f * stepSize, y1);
+                        factor = (isovalue - val3) / (val4 - val3);
+                        startPoint = new PointF(x2 - factor * stepSize, y2);
+                        factor = (isovalue - val2) / (val1 - val2);
+                        endPoint = new PointF(x2 - factor * stepSize, y1);
                         line = new Tuple<PointF, PointF>(startPoint, endPoint);
                         contours.Add(line);
                         break;
                     case 10:
+
                         if (middleVal > isovalue)
                         {
-                            startPoint = new PointF(x1 + 0.5f * stepSize, y2);
-                            endPoint = new PointF(x2, y1 + 0.5f * stepSize);
+                            factor = (isovalue - val1) / (val2 - val1);
+                            startPoint = new PointF(x1 + factor * stepSize, y1);
+                            factor = (isovalue - val1) / (val4 - val1);
+                            endPoint = new PointF(x1, y1 + factor * stepSize);
                             line = new Tuple<PointF, PointF>(startPoint, endPoint);
                             contours.Add(line);
 
-                            startPoint = new PointF(x1 + 0.5f * stepSize, y1);
-                            endPoint = new PointF(x1, y1 + 0.5f * stepSize);
+                            factor = (isovalue - val3) / (val4 - val3);
+                            startPoint = new PointF(x2 - factor * stepSize, y2);
+                            factor = (isovalue - val3) / (val2 - val3);
+                            endPoint = new PointF(x2, y2 - factor * stepSize);
                             line = new Tuple<PointF, PointF>(startPoint, endPoint);
                             contours.Add(line);
                         }
                         else
                         {
-                            startPoint = new PointF(x1 + 0.5f * stepSize, y2);
-                            endPoint = new PointF(x1, y1 + 0.5f * stepSize);
+                            factor = (isovalue - val3) / (val4 - val3);
+                            startPoint = new PointF(x2 - factor * stepSize, y2);
+                            factor = (isovalue - val1) / (val4 - val1);
+                            endPoint = new PointF(x1, y1 + factor * stepSize);
                             line = new Tuple<PointF, PointF>(startPoint, endPoint);
                             contours.Add(line);
 
-                            startPoint = new PointF(x1 + 0.5f * stepSize, y1);
-                            endPoint = new PointF(x2, y1 + 0.5f * stepSize);
+                            factor = (isovalue - val1) / (val2 - val1);
+                            startPoint = new PointF(x1 + factor * stepSize, y1);
+                            factor = (isovalue - val3) / (val2 - val3);
+                            endPoint = new PointF(x2, y2 - factor * stepSize);
                             line = new Tuple<PointF, PointF>(startPoint, endPoint);
                             contours.Add(line);
                         }
 
                         break;
                     case 11:
-                        startPoint = new PointF(x1 + 0.5f * stepSize, y2);
-                        endPoint = new PointF(x2, y1 + 0.5f * stepSize);
+                        factor = (isovalue - val3) / (val4 - val3);
+                        startPoint = new PointF(x2 - factor * stepSize, y2);
+                        factor = (isovalue - val3) / (val2 - val3);
+                        endPoint = new PointF(x2, y2 - factor * stepSize);
                         line = new Tuple<PointF, PointF>(startPoint, endPoint);
                         contours.Add(line);
 
                         break;
                     case 12:
-                        startPoint = new PointF(x2, y1 + 0.5f * stepSize);
-                        endPoint = new PointF(x1, y1 + 0.5f * stepSize);
+                        factor = (isovalue - val2) / (val3 - val2);
+                        startPoint = new PointF(x2, y1 + factor * stepSize);
+                        factor = (isovalue - val1) / (val4 - val1);
+                        endPoint = new PointF(x1, y1 + factor * stepSize);
                         line = new Tuple<PointF, PointF>(startPoint, endPoint);
                         contours.Add(line);
                         break;
                     case 13:
-                        startPoint = new PointF(x2, y1 + 0.5f * stepSize);
-                        endPoint = new PointF(x1 + 0.5f * stepSize, y1);
+                        factor = (isovalue - val2) / (val3 - val2);
+                        startPoint = new PointF(x2, y1 + factor * stepSize);
+                        factor = (isovalue - val2) / (val1 - val2);
+                        endPoint = new PointF(x2 - factor * stepSize, y1);
                         line = new Tuple<PointF, PointF>(startPoint, endPoint);
                         contours.Add(line);
                         break;
                     case 14:
-                        startPoint = new PointF(x1 + 0.5f * stepSize, y1);
-                        endPoint = new PointF(x1, y1 + 0.5f * stepSize);
+                        factor = (isovalue - val1) / (val2 - val1);
+                        startPoint = new PointF(x1 + factor * stepSize, y1);
+                        factor = (isovalue - val1) / (val4 - val1);
+                        endPoint = new PointF(x1, y1 + factor * stepSize);
                         line = new Tuple<PointF, PointF>(startPoint, endPoint);
                         contours.Add(line);
                         break;

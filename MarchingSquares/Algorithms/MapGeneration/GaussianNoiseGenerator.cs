@@ -24,9 +24,8 @@ public class GaussianNoiseGenerator
         return (float)Math.Exp(exponent);
     }
 
-    public float[,] GenerateNoiseMap(int points)
+    public float[,] GenerateNoiseMap(int points, bool generateComplicatedSpot)
     {
-        // todo: wylosować kilka takich pkt
         float sigma = _random.NextSingle() * 10.0f;
         float[,] noiseMap = new float[_mapWidth, _mapHeight];
         for (int x = 0; x < _mapWidth; x++)
@@ -41,7 +40,7 @@ public class GaussianNoiseGenerator
         for (int i = 0; i < points; i++)
         {
             // randomize center point
-            float peakSigma = sigma / _random.NextSingle() * 3.0f + 1.5f; //.Range(1.5f, 3.0f);
+            float peakSigma = sigma / _random.NextSingle() * 3.0f + 4.5f; //.Range(1.5f, 3.0f);
             float peakValue = _random.NextSingle() * amplitude + 1.0f;
 
             int x1 = _random.Next(0, _mapWidth);
@@ -64,10 +63,35 @@ public class GaussianNoiseGenerator
                     }
                 }
             }
+/*
+            if (generateComplicatedSpot && i == 0)
+            {
+                i++;
+                x1 += 10 * (_random.Next(1, 3) * -1);
+                y1 += 10 * (_random.Next(1, 3) * -1);
+                //peakValue = _random.NextSingle() * amplitude + 1.0f;
+                for (int x = 0; x < _mapWidth; x++)
+                {
+                    for (int y = 0; y < _mapHeight; y++)
+                    {
+                        float value = Gaussian(x + x1, y + y1, peakSigma);
+                        noiseMap[x, y] += value * peakValue;
+
+                        if (noiseMap[x, y] > maxNoiseHeight)
+                        {
+                            maxNoiseHeight = noiseMap[x, y];
+                        }
+                        else if (noiseMap[x, y] < minNoiseHeight)
+                        {
+                            minNoiseHeight = noiseMap[x, y];
+                        }
+                    }
+                }
+            }
+*/
 
             amplitude *= persistance;
         }
-
         for (int y = 0; y < _mapHeight; y++)
         {
             for (int x = 0; x < _mapWidth; x++)

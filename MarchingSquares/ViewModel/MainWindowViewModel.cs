@@ -45,7 +45,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
     public ICommand OpenFileDialogCommand { get; set; }
     public ICommand OpenSaveFileDialogCommand { get; set; }
-    public ICommand DoMarchingSquaresCommand { get; set; }
+    //public ICommand DoMarchingSquaresCommand { get; set; }
     public ICommand SwitchToColorCommand { get; set; }
     public ICommand SwitchToGrayscaleCommand { get; set; }
 
@@ -81,7 +81,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
         _bitmapService = new BitmapService();
         OpenFileDialogCommand = new OpenFileDialogCommand(this);
         OpenSaveFileDialogCommand = new OpenSaveFileDialogCommand(this);
-        DoMarchingSquaresCommand = new DoMarchingSquaresCommand(this);
+        //DoMarchingSquaresCommand = new DoMarchingSquaresCommand(this);
         SwitchToColorCommand = new SwitchToColorCommand(this);
         SwitchToGrayscaleCommand = new SwitchToGrayscaleCommand(this);
         Layers = new List<MarchingSquaresLayer>();

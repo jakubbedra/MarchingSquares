@@ -23,6 +23,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -56,6 +57,10 @@
                         <ComboBoxItem Content="Gaussian" Tag="{x:Static viewModel:GeneratorType.Gaussian}" />
                     </ComboBox>
                 </StackPanel>
+                <!--
+                <CheckBox Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" Margin="0,10,0,0"
+                          IsChecked="{Binding GenerateComplicatedSpot}"
+                          >Force difficult points</CheckBox>-->
             </Grid>
         </Grid>
         <Button Grid.Row="1" VerticalAlignment="Bottom" Height="50" Command="{Binding GenerateBitmapCommand}">

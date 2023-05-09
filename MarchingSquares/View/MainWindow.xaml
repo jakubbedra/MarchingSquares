@@ -13,7 +13,6 @@
     </Window.Resources>
     <Grid Height="780" Width="1080" DataContext="{StaticResource vm}" x:Name="MainGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="160"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid>
@@ -27,26 +26,19 @@
                     <RadioButton Content="Grayscale" IsChecked="True" Command="{Binding SwitchToGrayscaleCommand}" />
                     <RadioButton Content="Color" Command="{Binding SwitchToColorCommand}"/>
                 </MenuItem>
+                <MenuItem Header="_Marching Squares" Command="{Binding DoMarchingSquaresCommand, Mode=TwoWay}"></MenuItem>
             </Menu>
-
-            <Grid>
-                <!--todo-->
-            </Grid>
-            <Button Height="50" VerticalAlignment="Bottom" Margin="10, 0, 0, 40" 
-                    Command="{Binding DoMarchingSquaresCommand, Mode=TwoWay}">
-                Do marching squares
-            </Button>
         </Grid>
-        <Grid Column="1">
+        <Grid Column="0">
             <Slider x:Name="ZoomSlider"
                     Minimum="0.25"
                     Maximum="4"
                     Value="1"
                     TickFrequency="0.25"
                     IsSnapToTickEnabled="True"
-                    Margin="10"
+                    Margin="10, 24,0,0"
                     ></Slider>
-            <ScrollViewer Width="880" Height="700" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+            <ScrollViewer Width="1000" Height="700" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
                 <Image Source="{Binding VisibleImage}">
                     <Image.LayoutTransform>
                         <ScaleTransform ScaleX="{Binding ElementName=ZoomSlider, Path=Value}"
